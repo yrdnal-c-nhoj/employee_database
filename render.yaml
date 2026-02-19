@@ -2,6 +2,7 @@ services:
   - type: web
     name: employee-database-backend
     env: node
+    root: server  # Add this line to point to the server directory
     buildCommand: npm install
     startCommand: npm start
     envVars:
