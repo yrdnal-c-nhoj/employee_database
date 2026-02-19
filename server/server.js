@@ -10,7 +10,16 @@ const PORT = process.env.PORT || 5050;
 const MONGO_URI = process.env.ATLAS_URI || 'mongodb://localhost:27017/employee_database';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://employee-database-frontend.onrender.com',
+    'http://localhost:5174',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(express.json());
 
 // MongoDB Connection
