@@ -11,11 +11,7 @@ const MONGO_URI = process.env.ATLAS_URI || 'mongodb://localhost:27017/employee_d
 
 // Middleware
 app.use(cors({
-  origin: [
-    'https://employee-database-frontend.onrender.com',
-    'http://localhost:5174',
-    'http://localhost:3000'
-  ],
+  origin: 'http://localhost:5174',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -121,8 +117,37 @@ async function connectToMongo() {
   }
 }
 
+// Test database connection route
+app.get('/test-db', async (req, res) => {
+  if (!db) {
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Database not connected yet. Please try again in a moment.'
+    });
+  }
+  
+  try {
+    const collections = await db.listCollections().toArray();
+    const recordCount = await db.collection('records').countDocuments();
+    
+    res.json({ 
+      success: true, 
+      database: db.databaseName,
+      collections: collections.map(c => c.name),
+      recordCount: recordCount,
+      message: `Successfully connected to MongoDB. Found ${recordCount} records in 'records' collection.`
+    });
+  } catch (err) {
+    res.status(500).json({ 
+      success: false, 
+      error: err.message,
+      message: 'Error querying the database.'
+    });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  connectToMongo();
+  connectToMongo().catch(console.error);
 });
