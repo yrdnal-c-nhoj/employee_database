@@ -15,7 +15,7 @@ export default function Navbar () {
         <br />
         <NavLink className={navLinkStyles} to='/'>
           <img alt='MongoDB logo' src={logo} style={{ maxHeight: '30px' }} />
-          See Some Employees{' '}
+          See Some more Employees{' '}
         </NavLink>
       </nav>
     </div>
