@@ -10,12 +10,39 @@ const PORT = process.env.PORT || 5050;
 const MONGO_URI = process.env.ATLAS_URI || 'mongodb://localhost:27017/employee_database';
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:5173',  // Vite default port
+  'http://localhost:5174',  // Your configured port
+  'https://employee-database-mu.vercel.app'  // Your Vercel deployment
+];
+
 app.use(cors({
-  origin: 'http://localhost:5174',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
+      console.warn(msg);
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
+
+// Log all requests for debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  if (req.headers.origin) {
+    console.log('Origin header:', req.headers.origin);
+  }
+  next();
+});
 app.use(express.json());
 
 // MongoDB Connection

@@ -41,26 +41,40 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        console.error(message);
-        return;
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
+        if (!response.ok) {
+          const message = `An error occurred: ${response.statusText}`;
+          console.error(message);
+          return;
+        }
+        const records = await response.json();
+        setRecords(records);
+      } catch (error) {
+        console.error('Error fetching records:', error);
       }
-      const records = await response.json();
-      setRecords(records);
     }
     getRecords();
-    return;
-  }, [records.length]);
+  }, []); // Removed records.length from dependencies to prevent infinite re-renders
 
   // This method will delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:5050/record/${id}`, {
-      method: "DELETE",
-    });
-    const newRecords = records.filter((el) => el._id !== id);
-    setRecords(newRecords);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/record/${id}`, {
+        method: "DELETE",
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      
+      // Only update the UI if the delete was successful
+      const newRecords = records.filter((el) => el._id !== id);
+      setRecords(newRecords);
+    } catch (error) {
+      console.error('Error deleting record:', error);
+      // You might want to show an error message to the user here
+    }
   }
 
   // This method will map out the records on the table
