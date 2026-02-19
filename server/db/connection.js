@@ -34,7 +34,7 @@ try {
   console.log("✅ MongoDB connected successfully!");
 
   // Use your database (change "employees" to your DB name if needed)
-  db = client.db("employees");
+  db = client.db("emp_list");
 } catch (err) {
   console.error("❌ MongoDB connection failed:", err);
   process.exit(1);
