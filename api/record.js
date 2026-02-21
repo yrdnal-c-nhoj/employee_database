@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const client = new MongoClient(process.env.MONGODB_URI);
-const db = client.db('employee_database');
+const db = client.db('emplo');
 
 export default async function handler(req, res) {
   // Set CORS headers
