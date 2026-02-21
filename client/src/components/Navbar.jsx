@@ -7,10 +7,10 @@ const navLinkStyles =
 export default function Navbar () {
   return (
     <div>
-      <nav className='inline items-center justify-between mb-11'>
+      <nav className='inline justify-between items-center mb-11'>
         <NavLink className={navLinkStyles} to='/create'>
           <img alt='MongoDB logo' src={logo} style={{ maxHeight: '30px' }} />
-          Create Employee
+          Create E mployee
         </NavLink>
         <br />
         <NavLink className={navLinkStyles} to='/'>
