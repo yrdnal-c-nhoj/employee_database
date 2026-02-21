@@ -1,13 +1,11 @@
 // api/record.js
-import { MongoClient, ObjectId } from 'mongodb';
-import dotenv from 'dotenv';
-
-dotenv.config();
+const { MongoClient, ObjectId } = require('mongodb');
+require('dotenv').config();
 
 const client = new MongoClient(process.env.ATLAS_URI);
 const db = client.db('emp_list');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
