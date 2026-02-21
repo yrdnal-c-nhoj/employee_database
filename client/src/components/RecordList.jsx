@@ -93,7 +93,7 @@ export default function RecordList() {
   // This following section will display the table with the records of individuals.
   return (
     <>
-      <h3 className="p-4 font-semibold text-lg">Employee Records</h3>
+      <h3 className="p-4 font-semibold text-lg">jnbnjEmployee Records</h3>
       <div className="border rounded-lg overflow-hidden">
         <div className="relative w-full overflow-auto">
           <table className="w-full text-sm caption-bottom">
