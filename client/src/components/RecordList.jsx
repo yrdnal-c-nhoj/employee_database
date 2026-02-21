@@ -42,7 +42,7 @@ export default function RecordList() {
   useEffect(() => {
     async function getRecords() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
+        const response = await fetch(`/api/record`);
         if (!response.ok) {
           const message = `An error occurred: ${response.statusText}`;
           console.error(message);
@@ -60,7 +60,7 @@ export default function RecordList() {
   // This method will delete a record
   async function deleteRecord(id) {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/record/${id}`, {
+      const response = await fetch(`/api/record?id=${id}`, {
         method: "DELETE",
       });
       
