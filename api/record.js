@@ -9,9 +9,16 @@ async function connectToDatabase() {
     return { client, db };
   }
   
+  if (!process.env.ATLAS_URI) {
+    console.error('ATLAS_URI environment variable is not set');
+    throw new Error('ATLAS_URI environment variable is not set');
+  }
+  
+  console.log('Connecting to database...');
   client = new MongoClient(process.env.ATLAS_URI);
   await client.connect();
   db = client.db('emp_list');
+  console.log('Database connected successfully');
   
   return { client, db };
 }
