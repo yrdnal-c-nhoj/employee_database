@@ -1,8 +1,0 @@
-{
-  "name": "api",
-  "version": "1.0.0",
-  "main": "record.js",
-  "dependencies": {
-    "mongodb": "^4.1.0"
-  }
-}
