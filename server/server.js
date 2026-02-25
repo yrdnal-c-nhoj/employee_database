@@ -8,11 +8,12 @@ const PORT = process.env.PORT || 5050;
 
 // --- MIDDLEWARE ---
 
-// Dynamic CORS configuration to support Localhost and your future Vercel URL
+// Dynamic CORS configuration to support Localhost, Vercel, and Render URLs
 const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:5174', 
-  'https://employee-database-client.onrender.com', // Old link
+  'https://employee-database-client.onrender.com', // Old Render link
+  'https://employee-database-git-main-johns-projects-75897040.vercel.app', // Your Vercel URL
   process.env.CLIENT_URL // Set this in Render Dashboard to your Vercel URL
 ].filter(Boolean);
 
