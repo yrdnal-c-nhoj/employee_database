@@ -14,7 +14,7 @@ async function connectToDatabase() {
     throw new Error('ATLAS_URI environment variable is not set');
   }
   
-  console.log('Connecting to database...');
+  console.log('Connecting to the database...');
   client = new MongoClient(process.env.ATLAS_URI);
   await client.connect();
   db = client.db('emp_list');
