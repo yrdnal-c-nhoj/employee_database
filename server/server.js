@@ -6,26 +6,43 @@ import db from './db/connection.js';
 const app = express();
 const PORT = process.env.PORT || 5050;
 
-// Middleware
+// --- MIDDLEWARE ---
+
+// Dynamic CORS configuration to support Localhost and your future Vercel URL
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'http://localhost:5174', 
+  'https://employee-database-client.onrender.com', // Old link
+  process.env.CLIENT_URL // Set this in Render Dashboard to your Vercel URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://employee-database-client.onrender.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
+
 app.use(express.json());
 
 // --- ROUTES ---
 
-// Health Check / Test Route
+// 1. Health Check
 app.get("/", (req, res) => {
-  res.send("Server is running and connected to the database logic.");
+  res.status(200).send("Server is running and connected to MongoDB.");
 });
 
-// Get all records
+// 2. Get all records
 app.get('/record', async (req, res) => {
   try {
-    const records = await db.collection('records').find({}).toArray();
+    const collection = db.collection('records');
+    const records = await collection.find({}).toArray();
     res.status(200).json(records);
   } catch (err) {
     console.error("Fetch error:", err);
@@ -33,38 +50,74 @@ app.get('/record', async (req, res) => {
   }
 });
 
-// Create a record
+// 3. Get a single record by ID
+app.get('/record/:id', async (req, res) => {
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    const collection = db.collection('records');
+    const result = await collection.findOne(query);
+
+    if (!result) {
+      res.status(404).json({ error: "Record not found" });
+    } else {
+      res.status(200).json(result);
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Invalid ID format or server error' });
+  }
+});
+
+// 4. Create a record
 app.post('/record', async (req, res) => {
   try {
-    const newRecord = req.body;
-    const result = await db.collection('records').insertOne(newRecord);
+    const newRecord = {
+      name: req.body.name,
+      position: req.body.position,
+      level: req.body.level,
+    };
+    const collection = db.collection('records');
+    const result = await collection.insertOne(newRecord);
     res.status(201).json(result);
   } catch (err) {
     res.status(500).json({ error: 'Failed to create record' });
   }
 });
 
-// Delete a record
+// 5. Update a record (PATCH)
+app.patch('/record/:id', async (req, res) => {
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    const updates = {
+      $set: {
+        name: req.body.name,
+        position: req.body.position,
+        level: req.body.level,
+      },
+    };
+    const collection = db.collection('records');
+    const result = await collection.updateOne(query, updates);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update record' });
+  }
+});
+
+// 6. Delete a record
 app.delete('/record/:id', async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
-    const result = await db.collection('records').deleteOne(query);
+    const collection = db.collection('records');
+    const result = await collection.deleteOne(query);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete record' });
   }
 });
 
-// Update a record
-app.patch('/record/:id', async (req, res) => {
-  try {
-    const query = { _id: new ObjectId(req.params.id) };
-    const updates = { $set: req.body };
-    const result = await db.collection('records').updateOne(query, updates);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update record' });
-  }
+// --- GLOBAL ERROR HANDLER ---
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.listen(PORT, () => {
