@@ -37,21 +37,29 @@ const Record = (props) => (
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
       try {
+        setLoading(true);
+        setError(null);
         const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
         if (!response.ok) {
           const message = `An error occurred: ${response.statusText}`;
+          setError(message);
           console.error(message);
           return;
         }
         const records = await response.json();
         setRecords(records);
       } catch (error) {
+        setError('Failed to fetch records');
         console.error('Error fetching records:', error);
+      } finally {
+        setLoading(false);
       }
     }
     getRecords();
@@ -93,32 +101,38 @@ export default function RecordList() {
   // This following section will display the table with the records of individuals.
   return (
     <>
-      <h3 className="p-4 font-semibold text-lg">jnbnjEmployee Records</h3>
-      <div className="border rounded-lg overflow-hidden">
-        <div className="relative w-full overflow-auto">
-          <table className="w-full text-sm caption-bottom">
-            <thead className="[&amp;_tr]:border-b">
-              <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Name
-                </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Position
-                </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Level
-                </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody className="[&amp;_tr:last-child]:border-0">
-              {recordList()}
-            </tbody>
-          </table>
+      <h3 className="p-4 font-semibold text-lg">Employee Records</h3>
+      {loading ? (
+        <div className="p-4 text-center">Loading...</div>
+      ) : error ? (
+        <div className="p-4 text-red-500 text-center">Error: {error}</div>
+      ) : (
+        <div className="border rounded-lg overflow-hidden">
+          <div className="relative w-full overflow-auto">
+            <table className="w-full text-sm caption-bottom">
+              <thead className="[&amp;_tr]:border-b">
+                <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                    Name
+                  </th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                    Position
+                  </th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                    Level
+                  </th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="[&amp;_tr:last-child]:border-0">
+                {recordList()}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
