@@ -1,11 +1,22 @@
 // api/record.js
 const { MongoClient, ObjectId } = require('mongodb');
-require('dotenv').config();
 
-const client = new MongoClient(process.env.ATLAS_URI);
-const db = client.db('emp_list');
+let client;
+let db;
 
-module.exports = async function handler(req, res) {
+async function connectToDatabase() {
+  if (client && db) {
+    return { client, db };
+  }
+  
+  client = new MongoClient(process.env.ATLAS_URI);
+  await client.connect();
+  db = client.db('emp_list');
+  
+  return { client, db };
+}
+
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -16,32 +27,32 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    await client.connect();
+    const { db: database } = await connectToDatabase();
     
     switch (req.method) {
       case 'GET':
         if (req.query.id) {
-          const record = await db.collection('records').findOne({ _id: new ObjectId(req.query.id) });
+          const record = await database.collection('records').findOne({ _id: new ObjectId(req.query.id) });
           return res.status(200).json(record);
         } else {
-          const records = await db.collection('records').find({}).toArray();
+          const records = await database.collection('records').find({}).toArray();
           return res.status(200).json(records);
         }
         
       case 'POST':
         const newRecord = req.body;
-        const result = await db.collection('records').insertOne(newRecord);
+        const result = await database.collection('records').insertOne(newRecord);
         return res.status(201).json(result);
         
       case 'DELETE':
         const query = { _id: new ObjectId(req.query.id) };
-        const deleteResult = await db.collection('records').deleteOne(query);
+        const deleteResult = await database.collection('records').deleteOne(query);
         return res.status(200).json(deleteResult);
         
       case 'PATCH':
         const updateQuery = { _id: new ObjectId(req.query.id) };
         const updates = { $set: req.body };
-        const updateResult = await db.collection('records').updateOne(updateQuery, updates);
+        const updateResult = await database.collection('records').updateOne(updateQuery, updates);
         return res.status(200).json(updateResult);
         
       default:
