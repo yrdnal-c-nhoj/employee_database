@@ -1,28 +1,6 @@
 // api/record.js
 const { MongoClient, ObjectId } = require('mongodb');
 
-let client;
-let db;
-
-async function connectToDatabase() {
-  if (client && db) {
-    return { client, db };
-  }
-  
-  if (!process.env.ATLAS_URI) {
-    console.error('ATLAS_URI environment variable is not set');
-    throw new Error('ATLAS_URI environment variable is not set');
-  }
-  
-  console.log('Connecting to database...');
-  client = new MongoClient(process.env.ATLAS_URI);
-  await client.connect();
-  db = client.db('emp_list');
-  console.log('Database connected successfully');
-  
-  return { client, db };
-}
-
 module.exports = async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,7 +12,13 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { db: database } = await connectToDatabase();
+    if (!process.env.ATLAS_URI) {
+      return res.status(500).json({ error: 'ATLAS_URI environment variable is not set' });
+    }
+    
+    const client = new MongoClient(process.env.ATLAS_URI);
+    await client.connect();
+    const database = client.db('emp_list');
     
     switch (req.method) {
       case 'GET':
@@ -68,5 +52,9 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     console.error('API Error:', error);
     return res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    if (client) {
+      await client.close();
+    }
   }
 }
