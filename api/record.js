@@ -20,10 +20,14 @@ module.exports = async function handler(req, res) {
     await client.connect();
     const database = client.db('emp_list');
     
+    // Handle different endpoints
+    const { url } = req;
+    const id = req.query.id || (req.method === 'DELETE' ? url.split('/').pop() : null);
+    
     switch (req.method) {
       case 'GET':
-        if (req.query.id) {
-          const record = await database.collection('records').findOne({ _id: new ObjectId(req.query.id) });
+        if (id && id !== 'record') {
+          const record = await database.collection('records').findOne({ _id: new ObjectId(id) });
           return res.status(200).json(record);
         } else {
           const records = await database.collection('records').find({}).toArray();
@@ -36,12 +40,18 @@ module.exports = async function handler(req, res) {
         return res.status(201).json(result);
         
       case 'DELETE':
-        const query = { _id: new ObjectId(req.query.id) };
+        if (!id) {
+          return res.status(400).json({ error: 'ID is required for deletion' });
+        }
+        const query = { _id: new ObjectId(id) };
         const deleteResult = await database.collection('records').deleteOne(query);
         return res.status(200).json(deleteResult);
         
       case 'PATCH':
-        const updateQuery = { _id: new ObjectId(req.query.id) };
+        if (!id) {
+          return res.status(400).json({ error: 'ID is required for update' });
+        }
+        const updateQuery = { _id: new ObjectId(id) };
         const updates = { $set: req.body };
         const updateResult = await database.collection('records').updateOne(updateQuery, updates);
         return res.status(200).json(updateResult);
