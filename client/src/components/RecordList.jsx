@@ -46,7 +46,7 @@ export default function RecordList() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:5001/record`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
         if (!response.ok) {
           const message = `An error occurred: ${response.statusText}`;
           setError(message);
@@ -68,7 +68,7 @@ export default function RecordList() {
   // This method will delete a record
   async function deleteRecord(id) {
     try {
-      const response = await fetch(`http://localhost:5001/record/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/record/${id}`, {
         method: "DELETE",
       });
       
