@@ -6,7 +6,7 @@ services:
     repo: https://github.com/yrdnal-c-nhoj/employee_database.git
     rootDir: server
     buildCommand: "npm install"
-    startCommand: "node server.js"
+    startCommand: "npm start"
     envVars:
       - key: NODE_ENV
         value: production
@@ -22,8 +22,8 @@ services:
     env: static
     repo: https://github.com/yrdnal-c-nhoj/employee_database.git
     rootDir: client
-    buildCommand: "npm run build"
-    staticPublishPath: ./dist
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         value: https://employee-database-api.onrender.com
