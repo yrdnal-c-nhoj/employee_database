@@ -27,7 +27,3 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://employee-database-api.onrender.com
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://employee-database-api.onrender.com
