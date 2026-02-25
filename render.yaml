@@ -1,0 +1,27 @@
+services:
+  # Backend Service
+  - type: web
+    name: employee-database-api
+    env: docker
+    repo: https://github.com/yrdnal-c-nhoj/employee_database.git
+    rootDir: server
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ATLAS_URI
+        sync: false
+    healthCheckPath: /
+
+  # Frontend Service
+  - type: web
+    name: employee-database-client
+    env: docker
+    repo: https://github.com/yrdnal-c-nhoj/employee_database.git
+    rootDir: client
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: https://employee-database-api.onrender.com
