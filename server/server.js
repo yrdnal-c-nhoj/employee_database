@@ -13,7 +13,8 @@ const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:5174', 
   'https://employee-database-client.onrender.com', // Old Render link
-  'https://employee-database-git-main-johns-projects-75897040.vercel.app', // Your Vercel URL
+  'https://employee-database-git-main-johns-projects-75897040.vercel.app', // Your Vercel git URL
+  'https://employee-database-nu.vercel.app', // Your Vercel production URL
   process.env.CLIENT_URL // Set this in Render Dashboard to your Vercel URL
 ].filter(Boolean);
 
