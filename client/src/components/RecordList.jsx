@@ -103,7 +103,7 @@ export default function RecordList() {
     <>
       <h3 className="p-4 font-semibold text-lg">Employee Records</h3>
       {loading ? (
-        <div className="p-4 text-center">Loading...</div>
+        <div className="p-4 text-center">Loading ...</div>
       ) : error ? (
         <div className="p-4 text-red-500 text-center">Error: {error}</div>
       ) : (
