@@ -12,9 +12,13 @@ export default function Record() {
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, isAuthenticated } = useAuth();
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
     async function fetchData() {
       const id = params.id?.toString() || undefined;
       if(!id) return;
@@ -48,7 +52,13 @@ export default function Record() {
     }
     fetchData();
     return;
-  }, [params.id, navigate, token]);
+  }, [params.id, navigate, token, isAuthenticated]);
+
+  // Redirect if not authenticated
+  if (!isAuthenticated) {
+    window.location.href = '/login';
+    return null;
+  }
 
   // These methods will update the state properties.
   function updateForm(value) {

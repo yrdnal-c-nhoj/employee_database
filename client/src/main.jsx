@@ -9,7 +9,7 @@ import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./contexts/AuthContext";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -19,50 +19,38 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoute>
-            <RecordList />
-          </ProtectedRoute>
-        ),
+        element: <RecordList />,
       },
       {
         path: "create",
-        element: (
-          <ProtectedRoute>
-            <Record />
-          </ProtectedRoute>
-        ),
+        element: <Record />,
       },
       {
         path: "edit/:id",
-        element: (
-          <ProtectedRoute>
-            <Record />
-          </ProtectedRoute>
-        ),
+        element: <Record />,
       },
     ],
   },
   {
     path: "/login",
-    element: (
-      <PublicRoute>
-        <Login />
-      </PublicRoute>
-    ),
+    element: <Login />,
   },
   {
     path: "/register",
-    element: (
-      <PublicRoute>
-        <Register />
-      </PublicRoute>
-    ),
+    element: <Register />,
   },
 ]);
 
+const AppWrapper = () => {
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
+};
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AppWrapper />
   </React.StrictMode>
 );

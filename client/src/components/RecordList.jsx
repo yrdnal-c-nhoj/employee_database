@@ -40,10 +40,14 @@ export default function RecordList() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { token } = useAuth();
+  const { token, isAuthenticated } = useAuth();
 
   // This method fetches the records from the database.
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
     async function getRecords() {
       try {
         setLoading(true);
@@ -69,7 +73,13 @@ export default function RecordList() {
       }
     }
     getRecords();
-  }, [token]); // Added token dependency
+  }, [token, isAuthenticated]); // Added dependencies
+
+  // Redirect if not authenticated
+  if (!isAuthenticated) {
+    window.location.href = '/login';
+    return null;
+  }
 
   // This method will delete a record
   async function deleteRecord(id) {
