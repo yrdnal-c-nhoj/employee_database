@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Record = (props) => (
   <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
@@ -39,6 +40,7 @@ export default function RecordList() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { token } = useAuth();
 
   // This method fetches the records from the database.
   useEffect(() => {
@@ -46,7 +48,11 @@ export default function RecordList() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/record`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/record`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         if (!response.ok) {
           const message = `An error occurred: ${response.statusText}`;
           setError(message);
@@ -63,13 +69,16 @@ export default function RecordList() {
       }
     }
     getRecords();
-  }, []); // Removed records.length from dependencies to prevent infinite re-renders
+  }, [token]); // Added token dependency
 
   // This method will delete a record
   async function deleteRecord(id) {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/record/${id}`, {
         method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       
       if (!response.ok) {

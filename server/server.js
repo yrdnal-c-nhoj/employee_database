@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { ObjectId } from 'mongodb';
-import db from './db/connection.js'; 
+import db from './db/connection.js';
+import { authenticateToken } from './middleware/auth.js';
+import userRoutes from './routes/user.js'; 
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -35,13 +37,16 @@ app.use(express.json());
 
 // --- ROUTES ---
 
+// Authentication routes (public)
+app.use('/user', userRoutes);
+
 // 1. Health Check
 app.get("/", (req, res) => {
   res.status(200).send("Server is running and connected to MongoDB.");
 });
 
-// 2. Get all records
-app.get('/record', async (req, res) => {
+// 2. Get all records (protected)
+app.get('/record', authenticateToken, async (req, res) => {
   try {
     const collection = db.collection('records');
     const records = await collection.find({}).toArray();
@@ -52,8 +57,8 @@ app.get('/record', async (req, res) => {
   }
 });
 
-// 3. Get a single record by ID
-app.get('/record/:id', async (req, res) => {
+// 3. Get a single record by ID (protected)
+app.get('/record/:id', authenticateToken, async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
     const collection = db.collection('records');
@@ -69,8 +74,8 @@ app.get('/record/:id', async (req, res) => {
   }
 });
 
-// 4. Create a record
-app.post('/record', async (req, res) => {
+// 4. Create a record (protected)
+app.post('/record', authenticateToken, async (req, res) => {
   try {
     const newRecord = {
       name: req.body.name,
@@ -85,8 +90,8 @@ app.post('/record', async (req, res) => {
   }
 });
 
-// 5. Update a record (PATCH)
-app.patch('/record/:id', async (req, res) => {
+// 5. Update a record (PATCH) (protected)
+app.patch('/record/:id', authenticateToken, async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
     const updates = {
@@ -104,8 +109,8 @@ app.patch('/record/:id', async (req, res) => {
   }
 });
 
-// 6. Delete a record
-app.delete('/record/:id', async (req, res) => {
+// 6. Delete a record (protected)
+app.delete('/record/:id', authenticateToken, async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
     const collection = db.collection('records');

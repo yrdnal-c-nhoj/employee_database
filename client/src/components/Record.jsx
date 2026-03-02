@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Record() {
   const [form, setForm] = useState({
@@ -11,6 +12,7 @@ export default function Record() {
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
@@ -18,7 +20,12 @@ export default function Record() {
       if(!id) return;
       setIsNew(false);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/record/${params.id.toString()}`
+        `${import.meta.env.VITE_API_URL}/record/${params.id.toString()}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -41,7 +48,7 @@ export default function Record() {
     }
     fetchData();
     return;
-  }, [params.id, navigate]);
+  }, [params.id, navigate, token]);
 
   // These methods will update the state properties.
   function updateForm(value) {
@@ -62,6 +69,7 @@ export default function Record() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify(person),
         });
@@ -71,6 +79,7 @@ export default function Record() {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify(person),
         });
