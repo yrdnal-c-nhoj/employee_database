@@ -21,8 +21,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Connect to database
-    const database = db.db('emp_list');
-    const usersCollection = database.collection('users');
+    const usersCollection = db.collection('users');
 
     // Check if user already exists
     const existingUser = await usersCollection.findOne({ email });
@@ -80,8 +79,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Connect to database
-    const database = db.db('emp_list');
-    const usersCollection = database.collection('users');
+    const usersCollection = db.collection('users');
 
     // Find user
     const user = await usersCollection.findOne({ email });
@@ -130,8 +128,7 @@ router.get('/me', async (req, res) => {
     const jwt = require('jsonwebtoken');
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     
-    const database = db.db('emp_list');
-    const usersCollection = database.collection('users');
+    const usersCollection = db.collection('users');
     
     const user = await usersCollection.findOne(
       { _id: new ObjectId(decoded.id) },
