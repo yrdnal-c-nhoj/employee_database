@@ -19,12 +19,49 @@ A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for eff
 ### 🛠️ Technical Features
 - **🔄 RESTful API**: Well-structured Express.js backend
 - **🗄️ MongoDB Integration**: Cloud-hosted with MongoDB Atlas
+- **🔐 User Authentication**: JWT-based secure authentication system
+- **🔒 Protected Routes**: Employee management requires authentication
 - **🔐 Secure CORS**: Configurable cross-origin resource sharing
 - **🌍 Environment Config**: Flexible deployment configurations
 - **📦 Component Architecture**: Modular React components
 - **🚀 Fast Development**: Vite for lightning-fast builds
 
-## 📋 Employee Data Model
+### � Authentication Features
+- **👤 User Registration**: Secure account creation with password hashing
+- **🔑 JWT Login**: Token-based authentication with 24-hour expiration
+- **🛡️ Protected API**: All employee endpoints require authentication
+- **🔄 Auto-redirect**: Seamless login/logout flow with automatic redirects
+- **💾 Persistent Sessions**: Secure token storage in localStorage
+- **🚫 Route Protection**: Public routes (login/register) vs protected routes (dashboard)
+
+## � Data Models
+
+### 👤 User Model
+```json
+{
+  "_id": "ObjectId",
+  "email": "user@example.com",
+  "password": "hashed_password",
+  "name": "John Doe",
+  "createdAt": "2024-01-01T00:00:00.000Z",
+  "updatedAt": "2024-01-01T00:00:00.000Z"
+}
+```
+
+### 👥 Employee Model
+```json
+{
+  "_id": "ObjectId",
+  "name": "John Doe",
+  "position": "Software Engineer",
+  "level": "Junior"
+}
+```
+
+### Database Schema
+- **Database**: `emp_list`
+- **Collections**: `users`, `records`
+- **Authentication**: JWT tokens with bcrypt password hashing
 
 Each employee record contains:
 
@@ -176,6 +213,92 @@ Content-Type: application/json
 }
 ```
 
+## 🔐 Authentication API
+
+### User Registration
+```javascript
+POST /user/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "User registered successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "507f1f77bcf86cd799439011",
+    "email": "john@example.com",
+    "name": "John Doe"
+  }
+}
+```
+
+### User Login
+```javascript
+POST /user/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "507f1f77bcf86cd799439011",
+    "email": "john@example.com",
+    "name": "John Doe"
+  }
+}
+```
+
+### Get Current User
+```javascript
+GET /user/me
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "user": {
+    "id": "507f1f77bcf86cd799439011",
+    "email": "john@example.com",
+    "name": "John Doe",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+### Protected Employee Routes
+All employee management endpoints require authentication:
+
+```javascript
+GET /record
+Authorization: Bearer <token>
+
+POST /record
+Authorization: Bearer <token>
+
+PATCH /record/:id
+Authorization: Bearer <token>
+
+DELETE /record/:id
+Authorization: Bearer <token>
+```
+
 ## 🚀 Deployment
 
 ### 🌍 Production Environment Variables
@@ -185,6 +308,7 @@ Content-Type: application/json
 ATLAS_URI=mongodb+srv://username:password@cluster.mongodb.net/emp_list?retryWrites=true&w=majority
 PORT=10000
 NODE_ENV=production
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 CLIENT_URL=https://your-frontend-domain.com
 ```
 
@@ -376,6 +500,47 @@ Add logging to API calls:
 console.log('API Request:', method, url);
 console.log('Request Body:', req.body);
 ```
+
+#### 6. Authentication Issues
+**Problem**: "useAuth must be used within an AuthProvider"
+```
+Error: useAuth must be used within an AuthProvider
+```
+
+**Solutions**:
+- Ensure AuthProvider wraps the entire application
+- Check that AuthProvider is in the main.jsx or App.jsx
+- Verify component hierarchy is correct
+
+**Problem**: JWT token errors
+```
+Error: Invalid or expired token
+```
+
+**Solutions**:
+- Check JWT_SECRET environment variable is set
+- Verify token hasn't expired (24-hour expiration)
+- Clear localStorage and login again
+
+**Problem**: Registration returns 500 error
+```
+Error: Internal server error
+```
+
+**Solutions**:
+- Check database connection and ATLAS_URI
+- Verify JWT_SECRET is configured
+- Ensure bcryptjs and jsonwebtoken packages are installed
+
+**Problem**: Protected routes not working
+```
+Error: Access token required
+```
+
+**Solutions**:
+- Ensure Authorization header is included: `Bearer <token>`
+- Check token is stored in localStorage
+- Verify API calls include authentication headers
 
 ## 📊 Performance & Optimization
 
