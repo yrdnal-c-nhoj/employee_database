@@ -11,8 +11,8 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ['Oxanium', 'sans-serif'],
-        body: ['Outfit', 'sans-serif'],
         label: ['Roboto', 'sans-serif'],
+        navigation: ['Inter', 'sans-serif'],
       },
     },
   },

@@ -149,9 +149,9 @@ export default function RecordList() {
     <>
       <h3 className="p-4 font-semibold text-display text-lg">Employee Records</h3>
       {loading ? (
-        <div className="p-4 text-body text-center">Loading ...</div>
+        <div className="p-4 text-label text-center">Loading ...</div>
       ) : error ? (
-        <div className="p-4 text-body text-red-500 text-center">Error: {error}</div>
+        <div className="p-4 text-label text-red-500 text-center">Error: {error}</div>
       ) : (
         <div className="table-container">
           <div className="relative w-full overflow-auto">

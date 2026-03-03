@@ -58,7 +58,7 @@ const Register = () => {
           <h2 className="mt-6 font-extrabold text-display text-gray-900 text-3xl text-center">
             CREATE YOUR ACCOUNT
           </h2>
-          <p className="mt-2 text-body text-gray-600 text-sm text-center">
+          <p className="mt-2 text-gray-600 text-label text-sm text-center">
             Or{' '}
             <Link to="/login" className="font-medium text-indigo-600 text-label hover:text-indigo-500">
               SIGN IN TO YOUR EXISTING ACCOUNT

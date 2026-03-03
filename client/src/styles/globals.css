@@ -15,18 +15,21 @@
  * 
  * 2. BODY FONT - Outfit (for content text)
  *    - Clean, readable sans-serif
- *    - Used for: Paragraphs, descriptions, error messages
- *    - Tailwind class: font-body
+ *    - Used for: Parpx-4 py-2 rounded text-sm transition-colors' : '',;wind class: font-body
  * 
  * 3. LABEL FONT - Roboto (for buttons, labels, small text)
- *    - Versatile, professional sans-serif
- *    - Used for: Buttons, form labels, navigation items
- *    - Tailwind class: font-label
+ *    - Versatile, professionabg-gray-50 hover:bg-blue-200 text-blue-700 hover:text-orange-800 font-label' : '',;ailwind class: font-label
+ * 
+ * 4. NAVIGATION FONT - Inter (for navigation links)
+ *    - Clean, modern sans-serif optimized for UI
+ *    - Used for: Navigation links, menu items
+ *    - Tailwind class: font-navigation
  * 
  * FONT IMPORTS (from index.html):
  * - Oxanium: https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500
  * - Outfit: https://fonts.googleapis.com/css2?family=Outfit:wght@400;500
  * - Roboto: https://fonts.googleapis.com/css2?family=Roboto:wght@400;500
+ * - Inter: https://fonts.googleapis.com/css2?family=Inter:wght@400;500
  * 
  */
 
@@ -42,17 +45,17 @@
     @apply font-display;
   }
   
-  .text-body {
-    @apply font-body;
-  }
-  
   .text-label {
     @apply font-label;
   }
   
+  .text-navigation {
+    @apply font-navigation;
+  }
+  
   /* Form components */
   .form-input {
-    @apply block focus:z-10 relative px-3 py-2 border border-gray-300 focus:border-indigo-500 rounded-md focus:outline-none focus:ring-indigo-500 w-full font-body text-gray-900 sm:text-sm appearance-none placeholder-gray-500;
+    @apply block focus:z-10 relative px-3 py-2 border border-gray-300 focus:border-indigo-500 rounded-md focus:outline-none focus:ring-indigo-500 w-full font-label text-gray-900 sm:text-sm appearance-none placeholder-gray-500;
   }
   
   .form-label {
@@ -69,7 +72,7 @@
   
   /* Navigation components */
   .nav-link {
-    @apply inline-flex justify-center items-center bg-gray-100 hover:bg-gray-200 disabled:opacity-50 px-3 border border-gray-300 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 h-9 font-label font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none;
+    @apply inline-flex justify-center items-center bg-gray-100 hover:bg-gray-200 disabled:opacity-50 px-3 border border-gray-300 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 h-9 font-navigation font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none;
   }
   
   /* Card components */
@@ -115,20 +118,20 @@
   }
   
   .table-cell {
-    @apply p-4 align-middle [&:has([role=checkbox])]:pr-0 font-body;
+    @apply p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label;
   }
   
   /* Alert components */
   .alert-error {
-    @apply bg-red-50 px-4 py-3 border border-red-200 rounded-md font-body text-red-600;
+    @apply bg-red-50 px-4 py-3 border border-red-200 rounded-md font-label text-red-600;
   }
   
   .alert-success {
-    @apply bg-green-50 px-4 py-3 border border-green-200 rounded-md font-body text-green-600;
+    @apply bg-green-50 px-4 py-3 border border-green-200 rounded-md font-label text-green-600;
   }
   
   .alert-info {
-    @apply bg-blue-50 px-4 py-3 border border-blue-200 rounded-md font-body text-blue-600;
+    @apply bg-blue-50 px-4 py-3 border border-blue-200 rounded-md font-label text-blue-600;
   }
   
   /* Button components */
