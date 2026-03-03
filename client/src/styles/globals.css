@@ -6,30 +6,26 @@
  * FONT INFORMATION & TYPOGRAPHY SYSTEM
  * ====================================
  * 
- * This project uses a consistent typography system imported from Google Fonts:
+ * This project uses a mixed typography system:
  * 
- * 1. DISPLAY FONT - Oxanium (for headings)
- *    - Modern, geometric sans-serif
- *    - Used for: Page titles, section headers
+ * 1. DISPLAY FONT - Georgia (for headings and content)
+ *    - Classic, elegant serif font
+ *    - Used for: Page titles, section headers, content text
  *    - Tailwind class: font-display
  * 
- * 2. BODY FONT - Outfit (for content text)
- *    - Clean, readable sans-serif
- *    - Used for: Parpx-4 py-2 rounded text-sm transition-colors' : '',;wind class: font-body
+ * 2. LABEL FONT - Roboto Slab (for buttons, labels, form elements)
+ *    - Modern, sturdy serif font
+ *    - Used for: Buttons, form labels, small text, table cells
+ *    - Tailwind class: font-label
  * 
- * 3. LABEL FONT - Roboto (for buttons, labels, small text)
- *    - Versatile, professionabg-gray-50 hover:bg-blue-200 text-blue-700 hover:text-orange-800 font-label' : '',;ailwind class: font-label
- * 
- * 4. NAVIGATION FONT - Inter (for navigation links)
- *    - Clean, modern sans-serif optimized for UI
+ * 3. NAVIGATION FONT - Roboto Slab (for navigation links)
+ *    - Same sturdy serif font for consistency
  *    - Used for: Navigation links, menu items
  *    - Tailwind class: font-navigation
  * 
  * FONT IMPORTS (from index.html):
- * - Oxanium: https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500
- * - Outfit: https://fonts.googleapis.com/css2?family=Outfit:wght@400;500
- * - Roboto: https://fonts.googleapis.com/css2?family=Roboto:wght@400;500
- * - Inter: https://fonts.googleapis.com/css2?family=Inter:wght@400;500
+ * - Roboto Slab: https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500
+ * - Georgia: System serif font (no external import needed)
  * 
  */
 

@@ -109,27 +109,27 @@ export default function Record() {
   // This following section will display the form that takes the input from the user.
   return (
     <>
-      <h3 className="p-4 font-semibold text-lg">Create/Update Employee Record</h3>
+      <h3 className="p-4 font-display font-semibold text-lg">Create/Update Employee Record</h3>
       <form
         onSubmit={onSubmit}
         className="p-4 border rounded-lg overflow-hidden"
       >
         <div className="gap-x-8 gap-y-10 grid grid-cols-1 md:grid-cols-2 pb-12 border-slate-900/10 border-b">
           <div>
-            <h2 className="font-semibold text-slate-900 text-base leading-7">
+            <h2 className="font-display font-semibold text-slate-900 text-base leading-7">
               Employee Info
             </h2>
-            <p className="mt-1 text-slate-600 text-sm leading-6">
+            <p className="mt-1 font-display text-slate-600 text-sm leading-6">
               This information will be displayed publicly so be careful what you
               share.
             </p>
           </div>
 
-          <div className="gap-x-6 gap-y-8 grid grid-cols-1 max-w-2xl">
+          <div className="gap-x-6 gap-y-5 grid grid-cols-1 max-w-2xl">
             <div className="sm:col-span-4">
               <label
                 htmlFor="firstName"
-                className="block font-medium text-slate-900 text-sm leading-6"
+                className="block font-display font-medium text-slate-900 text-sm leading-9"
               >
                 First Name
               </label>
@@ -139,7 +139,7 @@ export default function Record() {
                     type="text"
                     name="firstName"
                     id="firstName"
-                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
+                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 font-display text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
                     placeholder="First"
                     value={form.firstName}
                     onChange={(e) => updateForm({ firstName: e.target.value })}
@@ -150,7 +150,7 @@ export default function Record() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="lastName"
-                className="block font-medium text-slate-900 text-sm leading-6"
+                className="block font-display font-medium text-slate-900 text-sm leading-3"
               >
                 Last Name
               </label>
@@ -160,7 +160,7 @@ export default function Record() {
                     type="text"
                     name="lastName"
                     id="lastName"
-                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
+                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 font-display text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
                     placeholder="Last"
                     value={form.lastName}
                     onChange={(e) => updateForm({ lastName: e.target.value })}
@@ -171,7 +171,7 @@ export default function Record() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="position"
-                className="block font-medium text-slate-900 text-sm leading-6"
+                className="block font-display font-medium text-slate-900 text-sm leading-6"
               >
                 Position
               </label>
@@ -181,7 +181,7 @@ export default function Record() {
                     type="text"
                     name="position"
                     id="position"
-                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
+                    className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 font-display text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
                     placeholder="Developer Advocate"
                     value={form.position}
                     onChange={(e) => updateForm({ position: e.target.value })}
@@ -205,7 +205,7 @@ export default function Record() {
                     />
                     <label
                       htmlFor="positionIntern"
-                      className="block mr-4 ml-3 font-medium text-slate-900 text-sm leading-6"
+                      className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
                       Intern
                     </label>
@@ -220,7 +220,7 @@ export default function Record() {
                     />
                     <label
                       htmlFor="positionJunior"
-                      className="block mr-4 ml-3 font-medium text-slate-900 text-sm leading-6"
+                      className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
                       Junior
                     </label>
@@ -235,7 +235,7 @@ export default function Record() {
                     />
                     <label
                       htmlFor="positionSenior"
-                      className="block mr-4 ml-3 font-medium text-slate-900 text-sm leading-6"
+                      className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
                       Senior
                     </label>
@@ -247,9 +247,9 @@ export default function Record() {
         </div>
         <button
           type="submit"
-          className="mt-4 form-button"
+          className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 mt-4 px-4 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-full font-label font-medium text-white text-sm transition-colors disabled:cursor-not-allowed"
         >
-          SAVE EMPLOYEE RECORD
+          CREATE/UPDATE EMPLOYEE RECORD
         </button>
       </form>
     </>

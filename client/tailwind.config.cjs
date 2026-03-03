@@ -10,9 +10,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Oxanium', 'sans-serif'],
-        label: ['Roboto', 'sans-serif'],
-        navigation: ['Inter', 'sans-serif'],
+        display: ['Georgia', 'serif'],
+        label: ['Roboto Slab', 'serif'],
+        navigation: ['Roboto Slab', 'serif'],
+        inter: ['Inter', 'sans-serif'],
       },
     },
   },

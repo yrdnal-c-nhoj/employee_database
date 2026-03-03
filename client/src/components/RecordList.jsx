@@ -4,25 +4,25 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Record = (props) => (
   <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
-    <td className="table-cell">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
       {props.record.name}
     </td>
-    <td className="table-cell">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
       {props.record.position}
     </td>
-    <td className="table-cell">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
       {props.record.level}
     </td>
-    <td className="table-cell">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
       <div className="flex gap-2">
         <Link
-          className="btn btn-secondary"
+          className="inline-flex justify-center items-center bg-white hover:bg-gray-200 disabled:opacity-50 px-3 border border-gray-300 hover:border-gray-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 h-9 font-label font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
           to={`/edit/${props.record._id}`}
         >
           EDIT
         </Link>
         <button
-          className="btn btn-danger"
+          className="bg-red-50 hover:bg-red-100 disabled:opacity-50 px-3 border border-red-200 hover:border-red-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 h-9 font-label font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
           color="red"
           type="button"
           onClick={() => {
@@ -153,13 +153,13 @@ export default function RecordList() {
       ) : error ? (
         <div className="p-4 text-label text-red-500 text-center">Error: {error}</div>
       ) : (
-        <div className="table-container">
+        <div className="border rounded-lg overflow-hidden">
           <div className="relative w-full overflow-auto">
-            <table className="table">
-              <thead className="table-header">
-                <tr className="table-row">
+            <table className="w-full text-sm caption-bottom">
+              <thead className="[&_tr]:border-b">
+                <tr className="hover:bg-gray-50 border-b transition-colors">
                   <th 
-                    className="table-header-cell-sortable"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
                     onClick={() => requestSort('name')}
                   >
                     <div className="flex items-center gap-1">
@@ -172,7 +172,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="table-header-cell-sortable"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
                     onClick={() => requestSort('position')}
                   >
                     <div className="flex items-center gap-1">
@@ -185,7 +185,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="table-header-cell-sortable"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
                     onClick={() => requestSort('level')}
                   >
                     <div className="flex items-center gap-1">
@@ -197,12 +197,12 @@ export default function RecordList() {
                       )}
                     </div>
                   </th>
-                  <th className="table-header-cell">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 font-label">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="table-body">
+              <tbody className="[&_tr:last-child]:border-0">
                 {recordList()}
               </tbody>
             </table>
