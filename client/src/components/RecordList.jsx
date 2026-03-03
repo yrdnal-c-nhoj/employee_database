@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -40,7 +40,34 @@ export default function RecordList() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const { token, isAuthenticated } = useAuth();
+
+  // Sorting function
+  const sortedRecords = useMemo(() => {
+    let sortableRecords = [...records];
+    if (sortConfig.key !== null) {
+      sortableRecords.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableRecords;
+  }, [records, sortConfig]);
+
+  // Handle sort request
+  const requestSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
 
   // This method fetches the records from the database.
   useEffect(() => {
@@ -106,7 +133,7 @@ export default function RecordList() {
 
   // This method will map out the records on the table
   function recordList() {
-    return records.map((record) => {
+    return sortedRecords.map((record) => {
       return (
         <Record
           record={record}
@@ -131,14 +158,44 @@ export default function RecordList() {
             <table className="w-full text-sm caption-bottom">
               <thead className="[&amp;_tr]:border-b">
                 <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
-                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                    Name
+                  <th 
+                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => requestSort('name')}
+                  >
+                    <div className="flex items-center gap-1">
+                      Name
+                      {sortConfig.key === 'name' && (
+                        <span className="text-xs">
+                          {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
                   </th>
-                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                    Position
+                  <th 
+                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => requestSort('position')}
+                  >
+                    <div className="flex items-center gap-1">
+                      Position
+                      {sortConfig.key === 'position' && (
+                        <span className="text-xs">
+                          {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
                   </th>
-                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                    Level
+                  <th 
+                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => requestSort('level')}
+                  >
+                    <div className="flex items-center gap-1">
+                      Level
+                      {sortConfig.key === 'level' && (
+                        <span className="text-xs">
+                          {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
                   </th>
                   <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                     Action
