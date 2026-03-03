@@ -1,9 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import logo from '../public/images/g.gif'
 
-const navLinkStyles =
-  'inline-flex items-center justify-center px-3 font-medium transition-colors border rounded-md whitespace-nowrap text-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-input bg-background hover:bg-slate-100 h-9'
+const navLinkStyles = 'nav-link'
 
 export default function Navbar () {
   const { user, isAuthenticated, logout } = useAuth();
@@ -16,23 +14,28 @@ export default function Navbar () {
 
   return (
     <div>
-      <nav className='flex justify-between items-center mb-11'>
+      <nav className='flex justify-between items-start mb-11'>
         <div className='flex gap-4'>
           {isAuthenticated && (
-            <>
+            <div className='flex flex-col gap-2'>
               <NavLink className={navLinkStyles} to='/'>
-                <img alt='MongoDB logo' src={logo} style={{ maxHeight: '30px' }} />
-                See Employees
+                <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span className="uppercase">See Employees</span>
               </NavLink>
               <NavLink className={navLinkStyles} to='/create'>
-                <img alt='MongoDB logo' src={logo} style={{ maxHeight: '30px' }} />
-                Create Employee
+                <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <span className="uppercase">Create Employee</span>
               </NavLink>
-            </>
+            </div>
           )}
         </div>
         
-        <div className='flex items-center gap-4'>
+        <div className='flex flex-col items-end gap-2'>
           {isAuthenticated ? (
             <>
               <span className='text-gray-600 text-sm'>
@@ -40,9 +43,9 @@ export default function Navbar () {
               </span>
               <button
                 onClick={handleLogout}
-                className='inline-flex justify-center items-center bg-background hover:bg-slate-100 disabled:opacity-50 px-3 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 h-9 font-medium text-md whitespace-nowrap transition-colors disabled:pointer-events-none'
+                className='btn btn-secondary'
               >
-                Logout
+                <span className="uppercase">Logout</span>
               </button>
             </>
           ) : (

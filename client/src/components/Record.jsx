@@ -245,11 +245,12 @@ export default function Record() {
             </div>
           </div>
         </div>
-        <input
+        <button
           type="submit"
-          value="Save Employee Record"
-          className="inline-flex justify-center items-center bg-background hover:bg-slate-100 disabled:opacity-50 mt-4 px-3 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 h-9 font-medium text-md whitespace-nowrap transition-colors hover:text-accent-foreground cursor-pointer disabled:pointer-events-none"
-        />
+          className="mt-4 form-button"
+        >
+          SAVE EMPLOYEE RECORD
+        </button>
       </form>
     </>
   );

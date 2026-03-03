@@ -4,32 +4,32 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Record = (props) => (
   <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+    <td className="table-cell">
       {props.record.name}
     </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+    <td className="table-cell">
       {props.record.position}
     </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+    <td className="table-cell">
       {props.record.level}
     </td>
-    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+    <td className="table-cell">
       <div className="flex gap-2">
         <Link
-          className="inline-flex justify-center items-center bg-background hover:bg-slate-100 disabled:opacity-50 px-3 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 h-9 font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
+          className="btn btn-secondary"
           to={`/edit/${props.record._id}`}
         >
-          Edit
+          EDIT
         </Link>
         <button
-          className="inline-flex justify-center items-center bg-background hover:bg-slate-100 disabled:opacity-50 px-3 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 h-9 font-medium text-sm whitespace-nowrap transition-colors hover:text-accent-foreground disabled:pointer-events-none"
+          className="btn btn-danger"
           color="red"
           type="button"
           onClick={() => {
             props.deleteRecord(props.record._id);
           }}
         >
-          Delete
+          DELETE
         </button>
       </div>
     </td>
@@ -147,19 +147,19 @@ export default function RecordList() {
   // This following section will display the table with the records of individuals.
   return (
     <>
-      <h3 className="p-4 font-semibold text-lg">Employee Records</h3>
+      <h3 className="p-4 font-semibold text-display text-lg">Employee Records</h3>
       {loading ? (
-        <div className="p-4 text-center">Loading ...</div>
+        <div className="p-4 text-body text-center">Loading ...</div>
       ) : error ? (
-        <div className="p-4 text-red-500 text-center">Error: {error}</div>
+        <div className="p-4 text-body text-red-500 text-center">Error: {error}</div>
       ) : (
-        <div className="border rounded-lg overflow-hidden">
+        <div className="table-container">
           <div className="relative w-full overflow-auto">
-            <table className="w-full text-sm caption-bottom">
-              <thead className="[&amp;_tr]:border-b">
-                <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
+            <table className="table">
+              <thead className="table-header">
+                <tr className="table-row">
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    className="table-header-cell-sortable"
                     onClick={() => requestSort('name')}
                   >
                     <div className="flex items-center gap-1">
@@ -172,7 +172,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    className="table-header-cell-sortable"
                     onClick={() => requestSort('position')}
                   >
                     <div className="flex items-center gap-1">
@@ -185,7 +185,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-accent/50 transition-colors"
+                    className="table-header-cell-sortable"
                     onClick={() => requestSort('level')}
                   >
                     <div className="flex items-center gap-1">
@@ -197,12 +197,12 @@ export default function RecordList() {
                       )}
                     </div>
                   </th>
-                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                  <th className="table-header-cell">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="[&amp;_tr:last-child]:border-0">
+              <tbody className="table-body">
                 {recordList()}
               </tbody>
             </table>
