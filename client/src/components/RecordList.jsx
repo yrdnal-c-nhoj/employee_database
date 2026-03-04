@@ -4,25 +4,25 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Record = (props) => (
   <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
       {props.record.name}
     </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
       {props.record.position}
     </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
       {props.record.level}
     </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 font-label">
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
       <div className="flex gap-2">
         <Link
-          className="inline-flex justify-center items-center bg-white hover:bg-gray-200 disabled:opacity-50 px-3 border border-gray-300 hover:border-gray-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 h-9 font-label font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
+          className="inline-flex justify-center items-center bg-white hover:bg-gray-200 disabled:opacity-50 px-3 border border-gray-300 hover:border-gray-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 h-9 font-medium text-label text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
           to={`/edit/${props.record._id}`}
         >
           EDIT
         </Link>
         <button
-          className="bg-red-50 hover:bg-red-100 disabled:opacity-50 px-3 border border-red-200 hover:border-red-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 h-9 font-label font-medium text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
+          className="bg-red-50 hover:bg-red-100 disabled:opacity-50 px-3 border border-red-200 hover:border-red-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 h-9 font-medium text-label text-sm whitespace-nowrap transition-colors disabled:pointer-events-none"
           color="red"
           type="button"
           onClick={() => {
@@ -133,10 +133,6 @@ export default function RecordList() {
 
   // This method will map out the records on the table
   function recordList() {
-    // Debug: Log the records to see what we're working with
-    console.log('Total records:', records.length);
-    console.log('Sorted records:', sortedRecords);
-    
     return sortedRecords
       .filter(record => {
         // More robust filtering to catch all invalid records
@@ -148,7 +144,6 @@ export default function RecordList() {
                        record.level &&
                        typeof record === 'object'; // Ensure it's an object
         
-        console.log('Record validation:', record, 'Valid:', isValid);
         return isValid;
       })
       .map((record) => {
@@ -175,7 +170,7 @@ export default function RecordList() {
           <p className="mb-4 text-gray-500 text-label">No employee records found.</p>
           <Link
             to="/create"
-            className="inline-flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 px-4 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 font-label font-medium text-white text-sm transition-colors disabled:cursor-not-allowed"
+            className="inline-flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 px-4 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 font-medium text-label text-white text-sm transition-colors disabled:cursor-not-allowed"
           >
             CREATE FIRST EMPLOYEE
           </Link>
@@ -187,7 +182,7 @@ export default function RecordList() {
               <thead className="[&_tr]:border-b">
                 <tr className="hover:bg-gray-50 border-b transition-colors">
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors text-label"
                     onClick={() => requestSort('name')}
                   >
                     <div className="flex items-center gap-1">
@@ -200,7 +195,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors text-label"
                     onClick={() => requestSort('position')}
                   >
                     <div className="flex items-center gap-1">
@@ -213,7 +208,7 @@ export default function RecordList() {
                     </div>
                   </th>
                   <th 
-                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors font-label"
+                    className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors text-label"
                     onClick={() => requestSort('level')}
                   >
                     <div className="flex items-center gap-1">
@@ -225,7 +220,7 @@ export default function RecordList() {
                       )}
                     </div>
                   </th>
-                  <th className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 font-label">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 text-label">
                     Action
                   </th>
                 </tr>
