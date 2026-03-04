@@ -133,15 +133,33 @@ export default function RecordList() {
 
   // This method will map out the records on the table
   function recordList() {
-    return sortedRecords.map((record) => {
-      return (
-        <Record
-          record={record}
-          deleteRecord={() => deleteRecord(record._id)}
-          key={record._id}
-        />
-      );
-    });
+    // Debug: Log the records to see what we're working with
+    console.log('Total records:', records.length);
+    console.log('Sorted records:', sortedRecords);
+    
+    return sortedRecords
+      .filter(record => {
+        // More robust filtering to catch all invalid records
+        const isValid = record && 
+                       record._id && 
+                       record.name && 
+                       record.name.trim() !== '' && // Not empty string
+                       record.position && 
+                       record.level &&
+                       typeof record === 'object'; // Ensure it's an object
+        
+        console.log('Record validation:', record, 'Valid:', isValid);
+        return isValid;
+      })
+      .map((record) => {
+        return (
+          <Record
+            record={record}
+            deleteRecord={() => deleteRecord(record._id)}
+            key={record._id}
+          />
+        );
+      });
   }
 
   // This following section will display the table with the records of individuals.
