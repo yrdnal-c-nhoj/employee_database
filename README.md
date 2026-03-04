@@ -1,4 +1,4 @@
-# 🗂️ Employee Database
+# John's Employee Database
 
 A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for efficiently managing employee records with complete CRUD operations, responsive design, and seamless user experience.
 
