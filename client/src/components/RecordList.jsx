@@ -152,6 +152,16 @@ export default function RecordList() {
         <div className="p-4 text-label text-center">Loading ...</div>
       ) : error ? (
         <div className="p-4 text-label text-red-500 text-center">Error: {error}</div>
+      ) : records.length === 0 ? (
+        <div className="p-8 text-center">
+          <p className="mb-4 text-gray-500 text-label">No employee records found.</p>
+          <Link
+            to="/create"
+            className="inline-flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 px-4 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 font-label font-medium text-white text-sm transition-colors disabled:cursor-not-allowed"
+          >
+            CREATE FIRST EMPLOYEE
+          </Link>
+        </div>
       ) : (
         <div className="border rounded-lg overflow-hidden">
           <div className="relative w-full overflow-auto">
