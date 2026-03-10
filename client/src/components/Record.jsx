@@ -116,10 +116,10 @@ export default function Record() {
       >
         <div className="gap-x-8 gap-y-10 grid grid-cols-1 md:grid-cols-2 pb-12 border-slate-900/10 border-b">
           <div>
-            <h2 className="font-display font-semibold text-slate-900 text-base leading-7">
+            <h2 className="font-semibold text-label text-slate-900 text-base leading-7">
               Employee Info
             </h2>
-            <p className="mt-1 font-display text-slate-600 text-sm leading-6">
+            <p className="mt-1 text-label text-slate-600 text-sm leading-6">
               This information will be displayed publicly so be careful what you
               share.
             </p>
@@ -129,7 +129,7 @@ export default function Record() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="firstName"
-                className="block font-display font-medium text-slate-900 text-sm leading-9"
+                className="block font-medium text-label text-slate-900 text-sm leading-9"
               >
                 First Name
               </label>
@@ -150,7 +150,7 @@ export default function Record() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="lastName"
-                className="block font-display font-medium text-slate-900 text-sm leading-3"
+                className="block font-medium text-label text-slate-900 text-sm leading-3"
               >
                 Last Name
               </label>
@@ -171,7 +171,7 @@ export default function Record() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="position"
-                className="block font-display font-medium text-slate-900 text-sm leading-6"
+                className="block font-medium text-label text-slate-900 text-sm leading-6"
               >
                 Position
               </label>
@@ -199,7 +199,7 @@ export default function Record() {
                       name="positionOptions"
                       type="radio"
                       value="Intern"
-                      className="border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
+                      className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
                       checked={form.level === "Intern"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
@@ -214,7 +214,7 @@ export default function Record() {
                       name="positionOptions"
                       type="radio"
                       value="Junior"
-                      className="border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
+                      className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
                       checked={form.level === "Junior"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
@@ -229,7 +229,7 @@ export default function Record() {
                       name="positionOptions"
                       type="radio"
                       value="Senior"
-                      className="border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
+                      className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
                       checked={form.level === "Senior"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
