@@ -9,6 +9,7 @@ import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import TestConnection from "./components/TestConnection";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./index.css";
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/test",
+    element: <TestConnection />,
   },
 ]);
 

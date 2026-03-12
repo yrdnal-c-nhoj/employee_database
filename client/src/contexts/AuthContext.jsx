@@ -21,7 +21,11 @@ export const AuthProvider = ({ children }) => {
       const storedToken = localStorage.getItem('token');
       if (storedToken) {
         try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+          const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/user/me`;
+      console.log('Checking auth at:', apiUrl);
+      console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+      
+      const response = await fetch(apiUrl, {
             headers: {
               'Authorization': `Bearer ${storedToken}`
             }
@@ -52,7 +56,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
+      const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/user/login`;
+      console.log('Attempting login to:', apiUrl);
+      console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -78,7 +86,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, name) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/register`, {
+      const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/user/register`;
+      console.log('Attempting registration to:', apiUrl);
+      console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

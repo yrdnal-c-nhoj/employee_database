@@ -39,9 +39,19 @@ app.use(express.json());
 // Authentication routes (public)
 app.use('/user', userRoutes);
 
-// 1. Health Check
+// Health Check
 app.get("/", (req, res) => {
   res.status(200).send("Server is running and connected to MongoDB.");
+});
+
+// Debug endpoint to test CORS and connectivity
+app.get("/test", (req, res) => {
+  console.log('Test endpoint hit from origin:', req.headers.origin);
+  res.status(200).json({ 
+    message: "Test endpoint working", 
+    timestamp: new Date().toISOString(),
+    origin: req.headers.origin 
+  });
 });
 
 // 2. Get all records (protected)
