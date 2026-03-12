@@ -14,13 +14,14 @@ const PORT = process.env.PORT || 5050;
 // --- MIDDLEWARE ---
 
 // Dynamic CORS configuration to support Localhost, Vercel, and Render URLs
+// In server.js, update allowedOrigins:
 const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:5174', 
-  'https://employee-database-client.onrender.com', // Old Render link
-  'https://employee-database-git-main-johns-projects-75897040.vercel.app', // Your Vercel git URL
-  'https://employee-database-nu.vercel.app', // Your Vercel production URL
-  process.env.CLIENT_URL // Set this in Render Dashboard to your Vercel URL
+  'https://employee-database-client.onrender.com',
+  'https://employee-database-nu.vercel.app',
+  'https://your-current-production-url.com', // Add your URL here
+  process.env.CLIENT_URL
 ].filter(Boolean);
 
 app.use(cors({
