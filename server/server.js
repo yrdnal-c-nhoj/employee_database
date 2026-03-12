@@ -20,7 +20,8 @@ const allowedOrigins = [
   'http://localhost:5174', 
   'https://employee-database-client.onrender.com',
   'https://employee-database-nu.vercel.app',
-  'https://your-current-production-url.com', // Add your URL here
+  'https://employee-database-nu.vercel.app/login',
+  'https://mern-todo-o78t.onrender.com', // Your current production URL
   process.env.CLIENT_URL
 ].filter(Boolean);
 
