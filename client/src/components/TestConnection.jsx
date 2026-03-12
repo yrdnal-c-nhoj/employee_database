@@ -7,7 +7,7 @@ const TestConnection = () => {
 
   useEffect(() => {
     // Check environment variables on mount
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com';
     setEnvInfo(`VITE_API_URL: ${import.meta.env.VITE_API_URL || 'NOT_DEFINED'}\nFallback URL: ${apiUrl}`);
   }, []);
 
@@ -19,7 +19,7 @@ const TestConnection = () => {
       console.log('=== Testing Connection ===');
       console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
       
-      const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/test`;
+      const apiUrl = `${import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com'}/test`;
       console.log('Full URL:', apiUrl);
       
       const response = await fetch(apiUrl, {
@@ -53,7 +53,7 @@ const TestConnection = () => {
       console.log('=== Testing Login ===');
       console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
       
-      const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/user/login`;
+      const apiUrl = `${import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com'}/user/login`;
       console.log('Full URL:', apiUrl);
       
       const response = await fetch(apiUrl, {
