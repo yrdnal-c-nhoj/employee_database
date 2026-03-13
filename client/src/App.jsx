@@ -8,7 +8,7 @@ const App = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="text-lg">Loading...</div>
+        <div className="text-lg">Loading..</div>
       </div>
     );
   }
