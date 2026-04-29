@@ -164,10 +164,10 @@ export default function Record() {
             </div>
             <div className="sm:col-span-4">
               <label
-                htmlFor="position"
+                htmlFor="Favorite Color"
                 className="block font-medium text-label text-slate-900 text-sm leading-6"
               >
-                Position
+                Favorite Color
               </label>
               <div className="mt-2">
                 <div className="flex shadow-sm rounded-md ring-1 ring-slate-300 focus-within:ring-2 focus-within:ring-indigo-600 ring-inset focus-within:ring-inset sm:max-w-md">
@@ -189,49 +189,49 @@ export default function Record() {
                 <div className="sm:flex sm:items-center sm:space-x-10 space-y-4 sm:space-y-0">
                   <div className="flex items-center">
                     <input
-                      id="levelJunior"
+                      id="levelElf On Duty"
                       name="positionOptions"
                       type="radio"
-                      value="Junior"
+                      value="Elf On Duty"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
-                      checked={form.level === "Junior"}
+                      checked={form.level === "Elf On Duty"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
                     <label
-                      htmlFor="levelJunior"
+                      htmlFor="levelElf On Duty"
                       className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
-                      Junior
+                      Elf On Duty
                     </label>
                     <input
-                      id="levelMid"
+                      id="levelToymaker"
                       name="positionOptions"
                       type="radio"
-                      value="Mid-Level"
+                      value="Toymaker"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
-                      checked={form.level === "Mid-Level"}
+                      checked={form.level === "Toymaker"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
                     <label
-                      htmlFor="levelMid"
+                      htmlFor="levelToymaker"
                       className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
-                      Mid-Level
+                      Toymaker
                     </label>
                     <input
-                      id="levelSenior"
+                      id="levelGiftWrap"
                       name="positionOptions"
                       type="radio"
-                      value="Senior"
+                      value="GiftWrap"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
-                      checked={form.level === "Senior"}
+                      checked={form.level === "GiftWrap"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
                     <label
-                      htmlFor="levelSenior"
+                      htmlFor="levelGiftWrap"
                       className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
-                      Senior
+                      GiftWrap
                     </label>
                   </div>
                 </div>

@@ -54,7 +54,7 @@ A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for eff
   "_id": "ObjectId",
   "name": "John Doe",
   "position": "Software Engineer",
-  "level": "Junior"
+  "level": "Elf"
 }
 ```
 
