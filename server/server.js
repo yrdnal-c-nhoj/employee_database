@@ -9,7 +9,7 @@ import { authenticateToken } from './middleware/auth.js';
 import userRoutes from './routes/user.js'; 
 
 const app = express();
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 5001;
 
 // --- SECURITY CHECK ---
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'your-super-secret-jwt-key-change-this-in-production') {

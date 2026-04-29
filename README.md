@@ -11,7 +11,7 @@ A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for eff
 
 ### 🎯 Core Functionality
 - **📝 Employee Management**: Complete CRUD operations (Create, Read, Update, Delete)
-- **📊 Data Sorting**: Dynamic sorting by name, color, or level for efficient data organization
+- **📊 Data Sorting**: Dynamic sorting by name, favorite color, or level for efficient data organization
 - **📱 Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **⚡ Real-time Updates**: Instant UI feedback after all operations
 - **🎨 Modern UI**: Clean, intuitive interface with Tailwind CSS
@@ -53,15 +53,15 @@ A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for eff
 {
   "_id": "ObjectId",
   "name": "John Doe",
-  "color": "Red",
-  "level": "Toymaker"
+  "color": "Green",
+  "level": "Elf On Duty"
 }
 ```
 
 ### Field Descriptions
 - **Name**: Full name (stored as single field, displayed as first/last name in form)
-- **Position**: Job title or role within the organization
-- **Level**: Career level - one of "Intern", "Junior", or "Senior"
+- **Color**: Favorite color or assigned team color
+- **Level**: Career level - one of "Elf On Duty", "Toymaker", or "GiftWrap"
 
 ### Database Schema
 - **Database**: `emp_list`
@@ -184,8 +184,8 @@ Content-Type: application/json
 
 {
   "name": "John Doe",
-  "position": "Software Engineer", 
-  "level": "Junior"
+  "color": "Green", 
+  "level": "Elf On Duty"
 }
 ```
 
