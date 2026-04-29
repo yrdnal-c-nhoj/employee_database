@@ -6,7 +6,7 @@ export default function Record() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    position: "",
+    color: "",
     level: "",
   });
   const [isNew, setIsNew] = useState(true);
@@ -46,7 +46,7 @@ export default function Record() {
       setForm({
         firstName: firstName,
         lastName: rest.join(' '),
-        position: record.position,
+        color: record.color,
         level: record.level,
       });
     }
@@ -64,7 +64,7 @@ export default function Record() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    const person = { name: form.firstName + ' ' + form.lastName, position: form.position, level: form.level };
+    const person = { name: form.firstName + ' ' + form.lastName, color: form.color, level: form.level };
     try {
       let response;
       if (isNew) {
@@ -95,7 +95,7 @@ export default function Record() {
     } catch (error) {
       console.error('A problem occurred adding or updating a record: ', error);
     } finally {
-      setForm({ firstName: "", lastName: "", position: "", level: "" });
+      setForm({ firstName: "", lastName: "", color: "", level: "" });
       navigate("/");
     }
   }
@@ -173,24 +173,24 @@ export default function Record() {
                 <div className="flex shadow-sm rounded-md ring-1 ring-slate-300 focus-within:ring-2 focus-within:ring-indigo-600 ring-inset focus-within:ring-inset sm:max-w-md">
                   <input
                     type="text"
-                    name="position"
-                    id="position"
+                    name="color"
+                    id="color"
                     className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 font-display text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
-                    placeholder="Product Manager"
-                    value={form.position}
-                    onChange={(e) => updateForm({ position: e.target.value })}
+                    placeholder="Favorite Color"
+                    value={form.color}
+                    onChange={(e) => updateForm({ color: e.target.value })}
                   />
                 </div>
               </div>
             </div>
             <div>
               <fieldset className="mt-4">
-                <legend className="sr-only">Position Options</legend>
+                <legend className="sr-only">Color Options</legend>
                 <div className="sm:flex sm:items-center sm:space-x-10 space-y-4 sm:space-y-0">
                   <div className="flex items-center">
                     <input
                       id="levelElf On Duty"
-                      name="positionOptions"
+                      name="colorOptions"
                       type="radio"
                       value="Elf On Duty"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
@@ -205,7 +205,7 @@ export default function Record() {
                     </label>
                     <input
                       id="levelToymaker"
-                      name="positionOptions"
+                      name="colorOptions"
                       type="radio"
                       value="Toymaker"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
@@ -220,7 +220,7 @@ export default function Record() {
                     </label>
                     <input
                       id="levelGiftWrap"
-                      name="positionOptions"
+                      name="colorOptions"
                       type="radio"
                       value="GiftWrap"
                       className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"

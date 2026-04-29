@@ -8,7 +8,7 @@ const Record = (props) => (
       {props.record.name}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
-      {props.record.position}
+      {props.record.color}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0 text-label">
       {props.record.level}
@@ -135,8 +135,6 @@ export default function RecordList() {
                        record._id && 
                        record.name && 
                        record.name.trim() !== '' && // Not empty string
-                       record.position && 
-                       record.level &&
                        typeof record === 'object'; // Ensure it's an object
         
         return isValid;
@@ -191,11 +189,11 @@ export default function RecordList() {
                   </th>
                   <th 
                     className="h-12 px-4 text-left align-middle font-medium text-gray-600 [&:has([role=checkbox])]:pr-0 cursor-pointer hover:bg-gray-50 transition-colors text-label"
-                    onClick={() => requestSort('position')}
+                    onClick={() => requestSort('color')}
                   >
                     <div className="flex items-center gap-1">
-                      Position
-                      {sortConfig.key === 'position' && (
+                      Color
+                      {sortConfig.key === 'color' && (
                         <span className="text-xs">
                           {sortConfig.direction === 'asc' ? '↑' : '↓'}
                         </span>

@@ -91,7 +91,7 @@ app.post('/record', authenticateToken, async (req, res) => {
   try {
     const newRecord = {
       name: req.body.name,
-      position: req.body.position,
+      color: req.body.color,
       level: req.body.level,
     };
     const collection = db.collection('records');
@@ -109,7 +109,7 @@ app.patch('/record/:id', authenticateToken, async (req, res) => {
     const updates = {
       $set: {
         name: req.body.name,
-        position: req.body.position,
+        color: req.body.color,
         level: req.body.level,
       },
     };
