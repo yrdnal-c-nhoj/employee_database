@@ -20,14 +20,11 @@ if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'your-super-secret-jwt
 // --- MIDDLEWARE ---
 
 // Dynamic CORS configuration to support Localhost, Vercel, and Render URLs
-// In server.js, update allowedOrigins:
 const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:5174', 
   'https://employee-database-client.onrender.com',
   'https://employee-database-nu.vercel.app',
-  'https://employee-database-nu.vercel.app/login',
-  'https://mern-todo-o78t.onrender.com', // Your current production URL
   process.env.CLIENT_URL
 ].filter(Boolean);
 

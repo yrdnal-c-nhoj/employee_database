@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import { ObjectId } from 'mongodb'; // Keep ObjectId for database queries
-import { generateToken } from '../middleware/auth.js';
+import { generateToken, authenticateToken } from '../middleware/auth.js';
 import db from '../db/connection.js';
 
 const router = express.Router();
@@ -118,17 +118,12 @@ router.post('/login', async (req, res) => {
 });
 
 // Get current user info (protected route)
-router.get('/me', async (req, res) => {
+router.get('/me', authenticateToken, async (req, res) => {
   try {
-    // The authenticateToken middleware (applied in server.js) should have already
-    // verified the token and attached the decoded user payload to req.user.
-    // If authenticateToken is not yet populating req.user, this route will need
-    // to be updated once that middleware is enhanced.
-    
     const usersCollection = db.collection('users');
     
-    const user = await usersCollection.findOne( // Assuming req.user is populated by middleware
-      { _id: new ObjectId(req.user._id) }, // Access user ID from the authenticated request
+    const user = await usersCollection.findOne(
+      { _id: new ObjectId(req.user._id || req.user.id) }, 
       { projection: { password: 0 } } // Exclude password from response
     );
 

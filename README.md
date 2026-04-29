@@ -70,7 +70,7 @@ Each employee record contains:
   "_id": "ObjectId",
   "name": "John Doe",
   "position": "Software Engineer",
-  "level": "Junior"
+  "level": "Associate"
 }
 ```
 

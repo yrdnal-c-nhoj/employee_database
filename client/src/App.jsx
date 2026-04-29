@@ -1,9 +1,10 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useAuth } from "./contexts/AuthContext";
 
 const App = () => {
   const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -14,8 +15,17 @@ const App = () => {
   }
 
   // Get current path to determine if we should show navbar
-  const path = window.location.pathname;
-  const isAuthPage = path === '/login' || path === '/register';
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+
+  // Centralized Auth Guard: Redirect to login if not authenticated
+  if (!isAuthenticated && !isAuthPage) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Redirect to home if already authenticated and trying to access login/register
+  if (isAuthenticated && isAuthPage) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="p-6 w-full">

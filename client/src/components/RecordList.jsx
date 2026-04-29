@@ -103,12 +103,6 @@ export default function RecordList() {
     getRecords();
   }, [token, isAuthenticated]); // Added dependencies
 
-  // Redirect if not authenticated
-  if (!isAuthenticated && !loading) { // Added !loading to prevent immediate redirect before auth check completes
-    navigate('/login');
-    return null;
-  }
-
   // This method will delete a record
   async function deleteRecord(id) {
     try {

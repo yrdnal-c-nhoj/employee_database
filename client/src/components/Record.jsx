@@ -54,12 +54,6 @@ export default function Record() {
     return;
   }, [params.id, navigate, token, isAuthenticated]);
 
-  // Redirect if not authenticated
-  if (!isAuthenticated && !loading) { // Assuming 'loading' state from AuthContext or local state
-    navigate('/login');
-    return null;
-  }
-
   // These methods will update the state properties.
   function updateForm(value) {
     return setForm((prev) => {
@@ -182,7 +176,7 @@ export default function Record() {
                     name="position"
                     id="position"
                     className="block flex-1 bg-transparent py-1.5 pl-1 border-0 focus:ring-0 font-display text-slate-900 placeholder:text-slate-400 sm:text-sm sm:leading-6"
-                    placeholder="Developer Advocate"
+                    placeholder="Product Manager"
                     value={form.position}
                     onChange={(e) => updateForm({ position: e.target.value })}
                   />
@@ -195,22 +189,7 @@ export default function Record() {
                 <div className="sm:flex sm:items-center sm:space-x-10 space-y-4 sm:space-y-0">
                   <div className="flex items-center">
                     <input
-                      id="positionIntern"
-                      name="positionOptions"
-                      type="radio"
-                      value="Intern"
-                      className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
-                      checked={form.level === "Intern"}
-                      onChange={(e) => updateForm({ level: e.target.value })}
-                    />
-                    <label
-                      htmlFor="positionIntern"
-                      className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
-                    >
-                      Intern
-                    </label>
-                    <input
-                      id="positionJunior"
+                      id="levelJunior"
                       name="positionOptions"
                       type="radio"
                       value="Junior"
@@ -219,13 +198,28 @@ export default function Record() {
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
                     <label
-                      htmlFor="positionJunior"
+                      htmlFor="levelJunior"
                       className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
                       Junior
                     </label>
                     <input
-                      id="positionSenior"
+                      id="levelMid"
+                      name="positionOptions"
+                      type="radio"
+                      value="Mid-Level"
+                      className="border border-slate-300 focus:ring-slate-600 w-4 h-4 text-slate-600 cursor-pointer"
+                      checked={form.level === "Mid-Level"}
+                      onChange={(e) => updateForm({ level: e.target.value })}
+                    />
+                    <label
+                      htmlFor="levelMid"
+                      className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
+                    >
+                      Mid-Level
+                    </label>
+                    <input
+                      id="levelSenior"
                       name="positionOptions"
                       type="radio"
                       value="Senior"
@@ -234,7 +228,7 @@ export default function Record() {
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
                     <label
-                      htmlFor="positionSenior"
+                      htmlFor="levelSenior"
                       className="block mr-4 ml-3 font-display font-medium text-slate-900 text-sm leading-6"
                     >
                       Senior
