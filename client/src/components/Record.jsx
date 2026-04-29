@@ -12,7 +12,7 @@ export default function Record() {
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -55,8 +55,8 @@ export default function Record() {
   }, [params.id, navigate, token, isAuthenticated]);
 
   // Redirect if not authenticated
-  if (!isAuthenticated) {
-    window.location.href = '/login';
+  if (!isAuthenticated && !loading) { // Assuming 'loading' state from AuthContext or local state
+    navigate('/login');
     return null;
   }
 

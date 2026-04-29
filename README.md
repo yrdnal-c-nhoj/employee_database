@@ -11,7 +11,7 @@ A modern, full-stack MERN (MongoDB, Express, React, Node.js) application for eff
 
 ### 🎯 Core Functionality
 - **📝 Employee Management**: Complete CRUD operations (Create, Read, Update, Delete)
-- **🔍 Search & Filter**: Quick employee lookup and filtering capabilities
+- **📊 Data Sorting**: Dynamic sorting by name, position, or level for efficient data organization
 - **📱 Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **⚡ Real-time Updates**: Instant UI feedback after all operations
 - **🎨 Modern UI**: Clean, intuitive interface with Tailwind CSS
@@ -92,8 +92,12 @@ employee_database/
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── RecordList.jsx    # Employee list with delete functionality
-│   │   │   ├── Record.jsx        # Create/edit employee form
-│   │   │   └── Navbar.jsx       # Navigation component
+│   │   │   ├── Record.jsx        # Create/edit employee form (handling name splitting)
+│   │   │   ├── Navbar.jsx        # Navigation with Auth states
+│   │   │   ├── Login.jsx         # User authentication form
+│   │   │   └── Register.jsx      # New user registration form
+│   │   ├── contexts/
+│   │   │   └── AuthContext.jsx   # Global authentication state management
 │   │   ├── main.jsx              # React Router setup
 │   │   └── App.jsx              # Main layout component
 │   ├── public/                   # Static assets
@@ -118,7 +122,6 @@ employee_database/
 - **React Router v7**: Client-side routing
 - **Vite**: Fast development server and build tool
 - **Tailwind CSS**: Utility-first CSS framework
-- **Axios**: HTTP client for API requests
 
 ### Backend
 - **Node.js**: JavaScript runtime
@@ -306,7 +309,7 @@ Authorization: Bearer <token>
 #### Backend Environment Variables
 ```env
 ATLAS_URI=mongodb+srv://username:password@cluster.mongodb.net/emp_list?retryWrites=true&w=majority
-PORT=10000
+PORT=5001
 NODE_ENV=production
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 CLIENT_URL=https://your-frontend-domain.com

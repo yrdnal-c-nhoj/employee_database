@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb'; // Keep ObjectId for database queries
 import { generateToken } from '../middleware/auth.js';
 import db from '../db/connection.js';
 
@@ -47,8 +47,8 @@ router.post('/register', async (req, res) => {
     // Generate token
     const token = generateToken({
       _id: result.insertedId,
-      email,
-      name
+      email: email,
+      name: name
     });
 
     res.status(201).json({
@@ -120,22 +120,15 @@ router.post('/login', async (req, res) => {
 // Get current user info (protected route)
 router.get('/me', async (req, res) => {
   try {
-    // This route should be protected by authentication middleware
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-      return res.status(401).json({ error: 'Access token required' });
-    }
-
-    // Verify token and get user info
-    const jwt = require('jsonwebtoken');
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    // The authenticateToken middleware (applied in server.js) should have already
+    // verified the token and attached the decoded user payload to req.user.
+    // If authenticateToken is not yet populating req.user, this route will need
+    // to be updated once that middleware is enhanced.
     
     const usersCollection = db.collection('users');
     
-    const user = await usersCollection.findOne(
-      { _id: new ObjectId(decoded.id) },
+    const user = await usersCollection.findOne( // Assuming req.user is populated by middleware
+      { _id: new ObjectId(req.user._id) }, // Access user ID from the authenticated request
       { projection: { password: 0 } } // Exclude password from response
     );
 

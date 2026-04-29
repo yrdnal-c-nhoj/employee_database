@@ -11,6 +11,12 @@ import userRoutes from './routes/user.js';
 const app = express();
 const PORT = process.env.PORT || 5050;
 
+// --- SECURITY CHECK ---
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'your-super-secret-jwt-key-change-this-in-production') {
+  console.warn("⚠️ WARNING: JWT_SECRET is not set or is using the default placeholder. Authentication will be insecure!");
+  // In a strict production environment, you might use process.exit(1) here instead.
+}
+
 // --- MIDDLEWARE ---
 
 // Dynamic CORS configuration to support Localhost, Vercel, and Render URLs
@@ -25,9 +31,9 @@ const allowedOrigins = [
   process.env.CLIENT_URL
 ].filter(Boolean);
 
-// Temporary: Allow all origins for debugging
+// Use the dynamic CORS configuration
 app.use(cors({
-  origin: true,
+  origin: allowedOrigins, // Use the defined allowedOrigins array
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true
 }));

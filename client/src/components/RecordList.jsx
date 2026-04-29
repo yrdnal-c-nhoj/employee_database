@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Record = (props) => (
   <tr className="data-[state=selected]:bg-muted hover:bg-muted/50 border-b transition-colors">
@@ -41,6 +41,7 @@ export default function RecordList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const navigate = useNavigate();
   const { token, isAuthenticated } = useAuth();
 
   // Sorting function
@@ -103,8 +104,8 @@ export default function RecordList() {
   }, [token, isAuthenticated]); // Added dependencies
 
   // Redirect if not authenticated
-  if (!isAuthenticated) {
-    window.location.href = '/login';
+  if (!isAuthenticated && !loading) { // Added !loading to prevent immediate redirect before auth check completes
+    navigate('/login');
     return null;
   }
 

@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       const storedToken = localStorage.getItem('token');
       if (storedToken) {
         try {
-          const apiUrl = `${import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com'}/user/me`;
+          const apiUrl = `${import.meta.env.VITE_API_URL}/user/me`;
       console.log('Checking auth at:', apiUrl);
       console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
       
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const apiUrl = `${import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com'}/user/login`;
+      const apiUrl = `${import.meta.env.VITE_API_URL}/user/login`;
       console.log('Attempting login to:', apiUrl);
       console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
       
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, name) => {
     try {
-      const apiUrl = `${import.meta.env.VITE_API_URL || 'https://emp-data-wserv.onrender.com'}/user/register`;
+      const apiUrl = `${import.meta.env.VITE_API_URL}/user/register`;
       console.log('Attempting registration to:', apiUrl);
       console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
       
